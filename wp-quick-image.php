@@ -67,4 +67,4 @@ function run_wp_quick_image() {
 	$plugin->run();
 
 }
-run_plugin_name();
+run_wp_quick_image();

@@ -100,4 +100,45 @@ class WP_Quick_Image_Admin {
 
 	}
 
+	/**
+	 * [init_widget description]
+	 * @return [type] [description]
+	 */
+	public function init_widget() {
+		wp_add_dashboard_widget( 'wp-quick-image', 'Quick Image Post', array($this, 'display_widget') );
+	}
+
+	/**
+	 * [display_widget description]
+	 * @return [type] [description]
+	 */
+	public function display_widget() {
+?>
+		<form name="post" action="http://plugindev.localnet/wp-admin/post.php" method="post" id="quick-press" class="initial-form hide-if-no-js">
+
+		
+			<div class="input-text-wrap" id="wp-quick-image-title-wrap">
+				<label class="prompt" for="wp-quick-image-title" id="wp-quick-image-title-prompt-text">
+					Title
+				</label>
+				<input type="text" name="wp-quick-image-title" id="wp-quick-image-title" autocomplete="off">
+			</div>
+
+			<div class="textarea-wrap" id="wp-quick-image-description-wrap">
+				<label class="prompt" for="wp-quick-image-content" id="wp-quick-image-content-prompt-text">What’s on your mind?</label>
+				<textarea name="wp-quick-image-content" id="wp-quick-image-content" class="mceEditor" rows="3" cols="15" autocomplete="off"></textarea>
+			</div>
+
+			<p class="submit">
+				<input type="hidden" name="action" id="wp-quick-image-action" value="post-quickdraft-save">
+				<input type="hidden" name="post_type" value="post">
+				<input type="hidden" id="_wpnonce" name="_wpnonce" value="61a6274e55">
+				<input type="hidden" name="_wp_http_referer" value="/wp-admin/index.php">
+				<input type="submit" name="save" id="save-post" class="button button-primary" value="Save Draft">
+				<br class="clear">
+			</p>
+
+		</form>
+<?php
+	}
 }

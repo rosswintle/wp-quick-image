@@ -21,7 +21,7 @@
  * @subpackage WP_Quick_Image/includes
  * @author     Your Name <email@example.com>
  */
-class Plugin_Name_Loader {
+class WP_Quick_Image_Loader {
 
 	/**
 	 * The array of actions registered with WordPress.
