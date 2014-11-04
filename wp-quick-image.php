@@ -1,27 +1,27 @@
 <?php
 
 /**
- * The plugin bootstrap file
+ * WP Quick Image
  *
  * This file is read by WordPress to generate the plugin information in the plugin
  * Dashboard. This file also includes all of the dependencies used by the plugin,
  * registers the activation and deactivation functions, and defines a function
  * that starts the plugin.
  *
- * @link              http://example.com
+ * @link              http://oikos.org.uk
  * @since             1.0.0
- * @package           Plugin_Name
+ * @package           wp-quick-image
  *
  * @wordpress-plugin
- * Plugin Name:       WordPress Plugin Boilerplate
- * Plugin URI:        http://example.com/plugin-name-uri/
- * Description:       This is a short description of what the plugin does. It's displayed in the WordPress dashboard.
- * Version:           1.0.0
- * Author:            Your Name or Your Company
- * Author URI:        http://example.com/
+ * Plugin Name:       WP Quick Image
+ * Plugin URI:        http://oikos.org.uk/wp-quick-image/
+ * Description:       This plugin adds a WordPress Dashboard widget that allows you to quickly post an image.
+ * Version:           0.1
+ * Author:            Ross Wintle / Oikos
+ * Author URI:        http://oikos.org.uk
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
- * Text Domain:       plugin-name
+ * Text Domain:       wp-quick-image
  * Domain Path:       /languages
  */
 
@@ -33,24 +33,24 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * The code that runs during plugin activation.
  */
-require_once plugin_dir_path( __FILE__ ) . 'includes/class-plugin-name-activator.php';
+require_once plugin_dir_path( __FILE__ ) . 'includes/class-wp-quick-image-activator.php';
 
 /**
  * The code that runs during plugin deactivation.
  */
-require_once plugin_dir_path( __FILE__ ) . 'includes/class-plugin-name-deactivator.php';
+require_once plugin_dir_path( __FILE__ ) . 'includes/class-wp-quick-image-deactivator.php';
 
 /** This action is documented in includes/class-plugin-name-activator.php */
-register_activation_hook( __FILE__, array( 'Plugin_Name_Activator', 'activate' ) );
+register_activation_hook( __FILE__, array( 'WP_Quick_Image_Activator', 'activate' ) );
 
 /** This action is documented in includes/class-plugin-name-deactivator.php */
-register_deactivation_hook( __FILE__, array( 'Plugin_Name_Deactivator', 'deactivate' ) );
+register_deactivation_hook( __FILE__, array( 'WP_Quick_Image_Deactivator', 'deactivate' ) );
 
 /**
  * The core plugin class that is used to define internationalization,
  * dashboard-specific hooks, and public-facing site hooks.
  */
-require_once plugin_dir_path( __FILE__ ) . 'includes/class-plugin-name.php';
+require_once plugin_dir_path( __FILE__ ) . 'includes/class-wp-quick-image.php';
 
 /**
  * Begins execution of the plugin.
@@ -61,9 +61,9 @@ require_once plugin_dir_path( __FILE__ ) . 'includes/class-plugin-name.php';
  *
  * @since    1.0.0
  */
-function run_plugin_name() {
+function run_wp_quick_image() {
 
-	$plugin = new Plugin_Name();
+	$plugin = new WP_Quick_Image();
 	$plugin->run();
 
 }

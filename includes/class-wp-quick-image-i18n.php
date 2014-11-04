@@ -9,8 +9,8 @@
  * @link       http://example.com
  * @since      1.0.0
  *
- * @package    Plugin_Name
- * @subpackage Plugin_Name/includes
+ * @package    WP_Quick_Image
+ * @subpackage WP_Quick_Image/includes
  */
 
 /**
@@ -20,11 +20,11 @@
  * so that its ready for translation.
  *
  * @since      1.0.0
- * @package    Plugin_Name
- * @subpackage Plugin_Name/includes
+ * @package    WP_Quick_Image
+ * @subpackage WP_Quick_Image/includes
  * @author     Your Name <email@example.com>
  */
-class Plugin_Name_i18n {
+class WP_Quick_Image_i18n {
 
 	/**
 	 * The domain specified for this plugin.
