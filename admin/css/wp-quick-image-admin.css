@@ -2,3 +2,19 @@
  * All of the CSS for your dashboard-specific functionality should be
  * included in this file.
  */
+#wp-quick-image-title-wrap,
+#wp-quick-image-preview,
+#wp-quick-image-description-wrap {
+	margin-bottom: 1em;
+}
+#wp-quick-image-preview {
+	margin-top: 1em;
+}
+#wp-quick-image-title-wrap #wp-quick-image-title-prompt-text {
+	font-size: 1.1em;
+	padding: 5px 8px;
+}
+#wp-quick-image-description-wrap #wp-quick-image-content-prompt-text {
+	font-size: 1.1em;
+	padding: 5px 8px;
+}

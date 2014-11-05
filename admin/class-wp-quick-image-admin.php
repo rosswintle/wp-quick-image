@@ -139,13 +139,44 @@ class WP_Quick_Image_Admin {
 			<p class="submit">
 				<input type="hidden" name="action" id="wp-quick-image-action" value="wp-quick-image-save">
 				<input type="hidden" name="post_type" value="post">
-				<input type="hidden" id="_wpnonce" name="_wpnonce" value="<?php wp_create_nonce('wp-quick-image'); ?>">
-				<input type="hidden" name="_wp_http_referer" value="/wp-admin/index.php">
-				<input type="submit" name="save" id="save-post" class="button button-primary" value="Save Draft">
+				<?php wp_nonce_field('wp-quick-image'); ?>
+				<input type="submit" name="save" id="save-post" class="button button-primary" value="Publish this">
 				<br class="clear">
 			</p>
 
 		</form>
 <?php
+	}
+
+	/**
+	 * [handle_ajax_submit description]
+	 * @return [type] [description]
+	 */
+	public function handle_ajax_submit() {
+		// Check nonce
+		if (check_admin_referer('wp-quick-image')) {
+			$attachment_id = $_REQUEST['wp-quick-image-id'];
+			$post_title = $_REQUEST['wp-quick-image-title'];
+			$post_content = $_REQUEST['wp-quick-image-content'];
+
+			$post_details = array(
+									'post_content' => $post_content,
+									'post_title' => $post_title,
+									'post_status' => 'publish',
+									'post_type' => 'post',
+									'post_excerpt' => $post_title,
+								);
+
+			$post_id = wp_insert_post( $post_details );
+
+			if ($post_id > 0) {
+				update_post_meta($post_id, '_thumbnail_id', $attachment_id);
+				echo '1';
+			} else {
+				echo '0';
+			}
+
+			die();
+		}
 	}
 }

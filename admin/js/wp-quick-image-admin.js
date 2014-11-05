@@ -53,13 +53,20 @@
 				// Check if a preview already exists - update or create as necessary.
 				var preview = $('#wp-quick-image-preview img');
 				if (preview.length) {
-					preview.attr('href', mediumImage.url);
+					preview.attr('src', mediumImage.url);
 				} else {
 					var imageTag = '<img src="' + mediumImage.url + '" title="' + '">';
 					$('#wp-quick-image-preview').append(imageTag);
+					$('#wp-quick-image-choose').html('Change image');
 				}
 			});
 			uploader.open();
+		});
+		$('form#quick-press').submit( function (e) {
+			e.preventDefault();
+			$.post( ajaxurl, $(this).serialize(), function( data, textStatus ) {
+				console.log('Success');
+			});
 		});
 	});
 

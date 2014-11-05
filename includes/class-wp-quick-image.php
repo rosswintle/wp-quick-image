@@ -155,7 +155,11 @@ class WP_Quick_Image {
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 
+		// Load the widget setup
 		$this->loader->add_action( 'wp_dashboard_setup', $plugin_admin, 'init_widget' );
+
+		// Load the AJAX handler
+		$this->loader->add_action( 'wp_ajax_wp-quick-image-save', $plugin_admin, 'handle_ajax_submit' );
 
 	}
 
