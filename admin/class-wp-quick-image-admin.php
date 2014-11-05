@@ -97,6 +97,7 @@ class WP_Quick_Image_Admin {
 		 */
 
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/wp-quick-image-admin.js', array( 'jquery' ), $this->version, false );
+		wp_enqueue_media();
 
 	}
 
@@ -124,15 +125,21 @@ class WP_Quick_Image_Admin {
 				<input type="text" name="wp-quick-image-title" id="wp-quick-image-title" autocomplete="off">
 			</div>
 
+			<button class="button button-secondary" id="wp-quick-image-choose">Add image</button>
+
+			<div id="wp-quick-image-preview">
+				<input name="wp-quick-image-id" id="wp-quick-image-id" type="hidden" value="0">
+			</div>
+
 			<div class="textarea-wrap" id="wp-quick-image-description-wrap">
-				<label class="prompt" for="wp-quick-image-content" id="wp-quick-image-content-prompt-text">What’s on your mind?</label>
+				<label class="prompt" for="wp-quick-image-content" id="wp-quick-image-content-prompt-text">Post content</label>
 				<textarea name="wp-quick-image-content" id="wp-quick-image-content" class="mceEditor" rows="3" cols="15" autocomplete="off"></textarea>
 			</div>
 
 			<p class="submit">
-				<input type="hidden" name="action" id="wp-quick-image-action" value="post-quickdraft-save">
+				<input type="hidden" name="action" id="wp-quick-image-action" value="wp-quick-image-save">
 				<input type="hidden" name="post_type" value="post">
-				<input type="hidden" id="_wpnonce" name="_wpnonce" value="61a6274e55">
+				<input type="hidden" id="_wpnonce" name="_wpnonce" value="<?php wp_create_nonce('wp-quick-image'); ?>">
 				<input type="hidden" name="_wp_http_referer" value="/wp-admin/index.php">
 				<input type="submit" name="save" id="save-post" class="button button-primary" value="Save Draft">
 				<br class="clear">
