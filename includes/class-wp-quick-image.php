@@ -6,8 +6,8 @@
  * A class definition that includes attributes and functions used across both the
  * public-facing side of the site and the dashboard.
  *
- * @link       http://example.com
- * @since      0.1
+ * @link       http://oikos.org.uk/wp-quick-image
+ * @since      0.1.0
  *
  * @package    WP_Quick_Image
  * @subpackage WP_Quick_Image/includes
@@ -22,10 +22,9 @@
  * Also maintains the unique identifier of this plugin as well as the current
  * version of the plugin.
  *
- * @since      1.0.0
+ * @since      0.1.0
  * @package    WP_Quick_Image
  * @subpackage WP_Quick_Image/includes
- * @author     Your Name <email@example.com>
  */
 class WP_Quick_Image {
 
@@ -33,7 +32,7 @@ class WP_Quick_Image {
 	 * The loader that's responsible for maintaining and registering all hooks that power
 	 * the plugin.
 	 *
-	 * @since    1.0.0
+	 * @since    0.1.0
 	 * @access   protected
 	 * @var      WP_Quick_Image_Loader    $loader    Maintains and registers all hooks for the plugin.
 	 */
@@ -42,7 +41,7 @@ class WP_Quick_Image {
 	/**
 	 * The unique identifier of this plugin.
 	 *
-	 * @since    1.0.0
+	 * @since    0.1.0
 	 * @access   protected
 	 * @var      string    $wp_quick_image    The string used to uniquely identify this plugin.
 	 */
@@ -51,7 +50,7 @@ class WP_Quick_Image {
 	/**
 	 * The current version of the plugin.
 	 *
-	 * @since    1.0.0
+	 * @since    0.1.0
 	 * @access   protected
 	 * @var      string    $version    The current version of the plugin.
 	 */
@@ -64,7 +63,7 @@ class WP_Quick_Image {
 	 * Load the dependencies, define the locale, and set the hooks for the Dashboard and
 	 * the public-facing side of the site.
 	 *
-	 * @since    1.0.0
+	 * @since    0.1.0
 	 */
 	public function __construct() {
 
@@ -83,15 +82,15 @@ class WP_Quick_Image {
 	 *
 	 * Include the following files that make up the plugin:
 	 *
-	 * - Plugin_Name_Loader. Orchestrates the hooks of the plugin.
-	 * - Plugin_Name_i18n. Defines internationalization functionality.
-	 * - Plugin_Name_Admin. Defines all hooks for the dashboard.
-	 * - Plugin_Name_Public. Defines all hooks for the public side of the site.
+	 * - WP_Quick_Image_Loader. Orchestrates the hooks of the plugin.
+	 * - WP_Quick_Image_i18n. Defines internationalization functionality.
+	 * - WP_Quick_Image_Admin. Defines all hooks for the dashboard.
+	 * - WP_Quick_Image_Public. Defines all hooks for the public side of the site.
 	 *
 	 * Create an instance of the loader which will be used to register the hooks
 	 * with WordPress.
 	 *
-	 * @since    1.0.0
+	 * @since    0.1.0
 	 * @access   private
 	 */
 	private function load_dependencies() {
@@ -126,10 +125,10 @@ class WP_Quick_Image {
 	/**
 	 * Define the locale for this plugin for internationalization.
 	 *
-	 * Uses the Plugin_Name_i18n class in order to set the domain and to register the hook
+	 * Uses the WP_Quick_Image_i18n class in order to set the domain and to register the hook
 	 * with WordPress.
 	 *
-	 * @since    1.0.0
+	 * @since    0.1.0
 	 * @access   private
 	 */
 	private function set_locale() {
@@ -145,7 +144,7 @@ class WP_Quick_Image {
 	 * Register all of the hooks related to the dashboard functionality
 	 * of the plugin.
 	 *
-	 * @since    1.0.0
+	 * @since    0.1.0
 	 * @access   private
 	 */
 	private function define_admin_hooks() {
@@ -155,7 +154,11 @@ class WP_Quick_Image {
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 
+		// Load the widget setup
 		$this->loader->add_action( 'wp_dashboard_setup', $plugin_admin, 'init_widget' );
+
+		// Load the AJAX handler
+		$this->loader->add_action( 'wp_ajax_wp-quick-image-save', $plugin_admin, 'handle_ajax_submit' );
 
 	}
 
@@ -163,12 +166,12 @@ class WP_Quick_Image {
 	 * Register all of the hooks related to the public-facing functionality
 	 * of the plugin.
 	 *
-	 * @since    1.0.0
+	 * @since    0.1.0
 	 * @access   private
 	 */
 	private function define_public_hooks() {
 
-		$plugin_public = new Plugin_Name_Public( $this->get_plugin_name(), $this->get_version() );
+		$plugin_public = new WP_Quick_Image_Public( $this->get_plugin_name(), $this->get_version() );
 
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
@@ -178,7 +181,7 @@ class WP_Quick_Image {
 	/**
 	 * Run the loader to execute all of the hooks with WordPress.
 	 *
-	 * @since    1.0.0
+	 * @since    0.1.0
 	 */
 	public function run() {
 		$this->loader->run();
@@ -188,7 +191,7 @@ class WP_Quick_Image {
 	 * The name of the plugin used to uniquely identify it within the context of
 	 * WordPress and to define internationalization functionality.
 	 *
-	 * @since     1.0.0
+	 * @since     0.1.0
 	 * @return    string    The name of the plugin.
 	 */
 	public function get_plugin_name() {
@@ -198,8 +201,8 @@ class WP_Quick_Image {
 	/**
 	 * The reference to the class that orchestrates the hooks with the plugin.
 	 *
-	 * @since     1.0.0
-	 * @return    Plugin_Name_Loader    Orchestrates the hooks of the plugin.
+	 * @since     0.1.0
+	 * @return    WP_Quick_Image_Loader    Orchestrates the hooks of the plugin.
 	 */
 	public function get_loader() {
 		return $this->loader;
@@ -208,7 +211,7 @@ class WP_Quick_Image {
 	/**
 	 * Retrieve the version number of the plugin.
 	 *
-	 * @since     1.0.0
+	 * @since     0.1.0
 	 * @return    string    The version number of the plugin.
 	 */
 	public function get_version() {
