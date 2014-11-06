@@ -3,8 +3,8 @@
 /**
  * The dashboard-specific functionality of the plugin.
  *
- * @link       http://example.com
- * @since      1.0.0
+ * @link       http://oikos.org.uk/wp-quick-image
+ * @since      0.1.0
  *
  * @package    WP_Quick_Image
  * @subpackage WP_Quick_Image/admin
@@ -18,14 +18,13 @@
  *
  * @package    WP_Quick_Image
  * @subpackage WP_Quick_Image/admin
- * @author     Your Name <email@example.com>
  */
 class WP_Quick_Image_Admin {
 
 	/**
 	 * The ID of this plugin.
 	 *
-	 * @since    1.0.0
+	 * @since    0.1.0
 	 * @access   private
 	 * @var      string    $plugin_name    The ID of this plugin.
 	 */
@@ -34,7 +33,7 @@ class WP_Quick_Image_Admin {
 	/**
 	 * The version of this plugin.
 	 *
-	 * @since    1.0.0
+	 * @since    0.1.0
 	 * @access   private
 	 * @var      string    $version    The current version of this plugin.
 	 */
@@ -43,7 +42,7 @@ class WP_Quick_Image_Admin {
 	/**
 	 * Initialize the class and set its properties.
 	 *
-	 * @since    1.0.0
+	 * @since    0.1.0
 	 * @var      string    $plugin_name       The name of this plugin.
 	 * @var      string    $version    The version of this plugin.
 	 */
@@ -57,7 +56,7 @@ class WP_Quick_Image_Admin {
 	/**
 	 * Register the stylesheets for the Dashboard.
 	 *
-	 * @since    1.0.0
+	 * @since    0.1.0
 	 */
 	public function enqueue_styles() {
 
@@ -80,7 +79,7 @@ class WP_Quick_Image_Admin {
 	/**
 	 * Register the JavaScript for the dashboard.
 	 *
-	 * @since    1.0.0
+	 * @since    0.1.0
 	 */
 	public function enqueue_scripts() {
 
@@ -102,16 +101,18 @@ class WP_Quick_Image_Admin {
 	}
 
 	/**
-	 * [init_widget description]
-	 * @return [type] [description]
+	 * Adds the dashboard widget
+	 * 
+	 * @since 0.1.0
 	 */
 	public function init_widget() {
 		wp_add_dashboard_widget( 'wp-quick-image', 'Quick Image Post', array($this, 'display_widget') );
 	}
 
 	/**
-	 * [display_widget description]
-	 * @return [type] [description]
+	 * Display the dashboard widget
+	 * 
+	 * @since 0.1.0
 	 */
 	public function display_widget() {
 ?>
@@ -149,8 +150,11 @@ class WP_Quick_Image_Admin {
 	}
 
 	/**
-	 * [handle_ajax_submit description]
-	 * @return [type] [description]
+	 * Handle the AJAX submission.  Prints 0 for failure or a json_encoded
+	 * array of useful info for success. Be sure to die() in both cases
+	 * and when sending JSON, set the Content-Type.
+	 * 
+	 * @since 0.1.0
 	 */
 	public function handle_ajax_submit() {
 		// Check nonce
