@@ -3,8 +3,8 @@
 /**
  * Fired during plugin activation
  *
- * @link       http://example.com
- * @since      1.0.0
+ * @link       http://oikos.org.uk/wp-quick-image
+ * @since      0.1.0
  *
  * @package    WP_Quick_Image
  * @subpackage WP_Quick_Image/includes
@@ -15,19 +15,16 @@
  *
  * This class defines all code necessary to run during the plugin's activation.
  *
- * @since      1.0.0
+ * @since      0.1.0
  * @package    WP_Quick_Image
  * @subpackage WP_Quick_Image/includes
- * @author     Your Name <email@example.com>
  */
 class WP_Quick_Image_Activator {
 
 	/**
-	 * Short Description. (use period)
+	 * We don't do anything on activate
 	 *
-	 * Long Description.
-	 *
-	 * @since    1.0.0
+	 * @since    0.1.0
 	 */
 	public static function activate() {
 

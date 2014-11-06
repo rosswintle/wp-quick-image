@@ -8,9 +8,9 @@
  * registers the activation and deactivation functions, and defines a function
  * that starts the plugin.
  *
- * @link              http://oikos.org.uk
- * @since             1.0.0
- * @package           wp-quick-image
+ * @link              http://oikos.org.uk/wp-quick-image
+ * @since             0.1.0
+ * @package           WP_Quick_Image
  *
  * @wordpress-plugin
  * Plugin Name:       WP Quick Image
@@ -59,7 +59,7 @@ require_once plugin_dir_path( __FILE__ ) . 'includes/class-wp-quick-image.php';
  * then kicking off the plugin from this point in the file does
  * not affect the page life cycle.
  *
- * @since    1.0.0
+ * @since    0.1.0
  */
 function run_wp_quick_image() {
 
