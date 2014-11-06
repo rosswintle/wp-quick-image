@@ -8,11 +8,11 @@ Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Here is a short description of the plugin.  This should be no more than 150 characters.  No markup here.
+It's like the "Quick Draft" dashboard widget, but for images!
 
 == Description ==
 
-*It's like the "Quick Draft" widget, but for images!*
+*It's like the "Quick Draft" dashboard widget, but for images!*
 
 Provides a simple dashboard widget that allows you to easily post images.  Posted images are set as the featured image of the created post, but are not, currently, included in the post content.
 
