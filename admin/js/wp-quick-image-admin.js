@@ -62,12 +62,50 @@
 			});
 			uploader.open();
 		});
+		// This does the submit
 		$('form#quick-press').submit( function (e) {
 			e.preventDefault();
+			// Disable buttons until we're done.
+			$('.wpqi-disable-on-submit').attr('disabled', 'true');
+			// Set text on the submit button.
+			$('#wpqi-save-post').val('Publishing');
+			// Post the data
 			$.post( ajaxurl, $(this).serialize(), function( data, textStatus ) {
 				console.log('Success');
+				console.log('Data: ');
+				console.log(data);
+				console.log('textStatus: ');
+				console.log(textStatus);
+				console.log('editUrl: ');
+				console.log(data.editUrl);
+				$('form#quick-press').append('<a href="' + data.editUrl + '">Edit post</a> | <a href="' + data.permalink + '">View post</a>');
+				$('#wpqi-save-post').val('Done!');
 			});
 		});
+		// Make placeholders work - this is AWFUL but is based on the non-reusable, un-semantic code in
+		// wp-admin/js/dashboard.js that power the quick draft widget.
+		$('#wp-quick-image-title, #wp-quick-image-content').each( function() {
+			var input = $(this), prompt = $('#' + this.id + '-prompt-text');
+
+			if ( '' === this.value ) {
+				prompt.removeClass('screen-reader-text');
+			}
+
+			prompt.click( function() {
+				$(this).addClass('screen-reader-text');
+				input.focus();
+			});
+
+			input.blur( function() {
+				if ( '' === this.value ) {
+					prompt.removeClass('screen-reader-text');
+				}
+			});
+
+			input.focus( function() {
+				prompt.addClass('screen-reader-text');
+			});
+		}); 
 	});
 
 })( jQuery );

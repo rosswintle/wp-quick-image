@@ -125,7 +125,7 @@ class WP_Quick_Image_Admin {
 				<input type="text" name="wp-quick-image-title" id="wp-quick-image-title" autocomplete="off">
 			</div>
 
-			<button class="button button-secondary" id="wp-quick-image-choose">Add image</button>
+			<button class="button button-secondary wpqi-disable-on-submit" id="wp-quick-image-choose">Add image</button>
 
 			<div id="wp-quick-image-preview">
 				<input name="wp-quick-image-id" id="wp-quick-image-id" type="hidden" value="0">
@@ -140,7 +140,7 @@ class WP_Quick_Image_Admin {
 				<input type="hidden" name="action" id="wp-quick-image-action" value="wp-quick-image-save">
 				<input type="hidden" name="post_type" value="post">
 				<?php wp_nonce_field('wp-quick-image'); ?>
-				<input type="submit" name="save" id="save-post" class="button button-primary" value="Publish this">
+				<input type="submit" name="save" id="wpqi-save-post" class="button button-primary wpqi-disable-on-submit" value="Publish this">
 				<br class="clear">
 			</p>
 
@@ -171,7 +171,12 @@ class WP_Quick_Image_Admin {
 
 			if ($post_id > 0) {
 				update_post_meta($post_id, '_thumbnail_id', $attachment_id);
-				echo '1';
+				header('Content-Type: application/json');
+				echo json_encode( array( 
+									'postId' => $post_id,
+									'editUrl' => get_edit_post_link($post_id, 'attr'),
+									'permalink' => get_permalink($post_id),
+					));
 			} else {
 				echo '0';
 			}
