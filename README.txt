@@ -45,7 +45,7 @@ Mostly because the theme I use displays the featured image really nicely and so 
 
 No. This is an option that I plan to add in future.
 
-= Can I post as a draft?
+= Can I post as a draft? =
 
 No, but again, this is an option I plan to add in future.
 
@@ -56,10 +56,28 @@ No, but again, this is an option I plan to add in future.
 
 == Changelog ==
 
+= 0.1.3 =
+* Fixed more info in README and bumped version no.
+
+= 0.1.2 =
+* Added the plugin name to the README. Oops! (Hey, it's my first plugin on the repo!)
+
+= 0.1.1 =
+* Updated a line in the README that I missed
+
 = 0.1 =
 * Initial release
 
 == Upgrade Notice ==
+
+= 0.1.3 =
+* Fixed more info in README and bumped version no.
+
+= 0.1.2 =
+* Added the plugin name to the README. Oops! (Hey, it's my first plugin on the repo!)
+
+= 0.1.1 =
+* Updated a line in the README that I missed
 
 = 0.1 =
 Initial release
