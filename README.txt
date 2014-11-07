@@ -1,4 +1,4 @@
-=== Plugin Name ===
+=== WP Quick Image ===
 Contributors: magicroundabout
 Donate link: http://oikos.org.uk/wp-quick-image
 Tags: images, dashboard, widgets
