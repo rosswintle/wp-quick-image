@@ -16,6 +16,12 @@ It's like the "Quick Draft" dashboard widget, but for images!
 
 Provides a simple dashboard widget that allows you to easily post images.  Posted images are set as the featured image of the created post, but are not, currently, included in the post content.
 
+Here's an introductory video:
+
+[youtube https://www.youtube.com/watch?v=DuQNl4thyJk]
+
+Find out more about the plugin at [http://wpquickimage.com](http://wpquickimage.com).
+
 This is a first-stab at this functionality.  It works but needs more features to be really useful. I plan to develop it more.
 
 == Installation ==
@@ -32,6 +38,10 @@ Alternatively you can upload `wp-quick-image.zip` from Plugins -> Add New -> Upl
 I developed this because I wanted to post image-only posts to my blog, and set that image as the featured image, which makes use of theme features that display featured images.
 
 It's also great for posting images to Facebook. If you use a pluign like Yoast's WordPress SEO then you can automatically have OpenGraph data generated for posts and you can post images on your blog to Facebook, without ever uploading them to Facebook!
+
+This video demonstrates how posting to Facebook works and looks:
+
+https://www.youtube.com/watch?v=HjArLqgj738
 
 = Why don't you use post formats? =
 
