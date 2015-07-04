@@ -160,6 +160,11 @@ class WP_Quick_Image {
 		// Load the AJAX handler
 		$this->loader->add_action( 'wp_ajax_wp-quick-image-save', $plugin_admin, 'handle_ajax_submit' );
 
+		// Add settings page
+		$this->loader->add_action( 'admin_menu', $plugin_admin, 'init_settings_menu' );
+
+		// Init settings
+		$this->loader->add_action( 'admin_init', $plugin_admin, 'init_settings' );
 	}
 
 	/**

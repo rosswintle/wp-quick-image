@@ -101,6 +101,159 @@ class WP_Quick_Image_Admin {
 	}
 
 	/**
+	 * Add the settings menu
+	 * 
+	 * @since 0.2.0
+	 */
+	public function init_settings_menu() {
+		
+		add_options_page( 'WP Quick Image', 'WP Quick Image', 'manage_options', 'wp_quick_image', array($this, 'settings_page') );
+
+	}
+
+	/**
+	 * Initialise settings
+	 * 
+	 * @since 0.2.0
+	 */
+	public function init_settings() {
+		
+		// Register a single setting - we'll store stuff within this in serialized form
+		register_setting( 'wp_quick_image', 'wpqi_settings' );
+
+		add_settings_section(
+			'wpqi_settings_general', 
+			__( 'General settings', 'wordpress' ), 
+			array($this, 'wpqi_settings_general_callback'), 
+			'wp_quick_image'
+		);	
+
+		add_settings_field( 
+			'wpqi_post_type', 
+			__( 'Post type', 'wordpress' ), 
+			array($this, 'wpqi_post_type_field_render'), 
+			'wp_quick_image', 
+			'wpqi_settings_general' 
+		);
+	
+		add_settings_field( 
+			'wpqi_category', 
+			__( 'Category', 'wordpress' ), 
+			array($this, 'wpqi_category_field_render'), 
+			'wp_quick_image', 
+			'wpqi_settings_general' 
+		);
+
+		add_settings_field( 
+			'wpqi_tag', 
+			__( 'Tag', 'wordpress' ), 
+			array($this, 'wpqi_tag_field_render'), 
+			'wp_quick_image', 
+			'wpqi_settings_general' 
+		);
+
+	}
+
+	/**
+	 * Render the settings page
+	 * 
+	 * @since 0.2.0
+	 */
+	public function settings_page() {
+		
+	?>
+		<form action='options.php' method='post'>
+		
+			<h2>WP Quick Image</h2>
+
+			<?php
+				// Hidden fields and security
+				settings_fields( 'wp_quick_image' );
+				do_settings_sections( 'wp_quick_image' );
+				submit_button();
+			?>
+		</form>
+	<?php
+	}
+
+	/**
+	 * Output the content for the general settings section
+	 * 
+	 * @since 0.2.0
+	 */
+	public function wpqi_settings_general_callback() {
+		_e('General settings for WP Quick Image', 'wordpress');
+	}
+
+	/**
+	 * Output the content for the post type option
+	 * 
+	 * @since 0.2.0
+	 */
+	public function wpqi_post_type_field_render() {
+		$options = get_option( 'wpqi_settings' );
+		if (isset($options['post_type'])) {
+			$current_val = $options['post_type'];
+		} else {
+			$current_val = 'post';
+		}
+		
+	?>
+		<select name='wpqi_settings[post_type]'>
+			<?php foreach (get_post_types() as $this_type) : ?>
+				<option value='<?php echo $this_type ?>' <?php selected( $current_val, $this_type ); ?>><?php echo $this_type; ?></option>
+			<?php endforeach; ?>
+		</select>
+
+	<?php
+	}
+
+	/**
+	 * Output the content for the category option
+	 * 
+	 * @since 0.2.0
+	 */
+	public function wpqi_category_field_render() {
+		$options = get_option( 'wpqi_settings' );
+		if (isset($options['category'])) {
+			$current_val = $options['category'];
+		} else {
+			$current_val = '';
+		}
+	?>
+		<select name='wpqi_settings[category]'>
+			<?php foreach (get_post_types() as $this_type) : ?>
+				<option value='<?php echo $this_type ?>' <?php selected( $current_val, $this_type ); ?>><?php echo $this_type; ?></option>
+			<?php endforeach; ?>
+		</select>
+
+	<?php
+	}
+
+	/**
+	 * Output the content for the post type option
+	 * 
+	 * @since 0.2.0
+	 */
+	public function wpqi_tag_field_render() {
+		$options = get_option( 'wpqi_settings' );
+		if (isset($options['tag'])) {
+			$current_val = $options['tag'];
+		} else {
+			$current_val = '';
+		}
+
+	?>
+		<select name='wpqi_settings[tag]'>
+			<?php foreach (get_post_types() as $this_type) : ?>
+				<option value='<?php echo $this_type ?>' <?php selected( $current_val, $this_type ); ?>><?php echo $this_type; ?></option>
+			<?php endforeach; ?>
+		</select>
+
+	<?php
+	}
+
+	/**
 	 * Adds the dashboard widget
 	 * 
 	 * @since 0.1.0
