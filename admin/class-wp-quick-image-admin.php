@@ -152,6 +152,30 @@ class WP_Quick_Image_Admin {
 			'wpqi_settings_general' 
 		);
 
+		add_settings_field( 
+			'wpqi_add_excerpt', 
+			__( 'Add excerpt', 'wordpress' ), 
+			array($this, 'wpqi_add_excerpt_field_render'), 
+			'wp_quick_image', 
+			'wpqi_settings_general' 
+		);
+
+		add_settings_field( 
+			'wpqi_add_content', 
+			__( 'Add content', 'wordpress' ), 
+			array($this, 'wpqi_add_content_field_render'), 
+			'wp_quick_image', 
+			'wpqi_settings_general' 
+		);
+
+		add_settings_field( 
+			'wpqi_set_featured_image', 
+			__( 'Set featured image', 'wordpress' ), 
+			array($this, 'wpqi_set_featured_image_field_render'), 
+			'wp_quick_image', 
+			'wpqi_settings_general' 
+		);
+
 	}
 
 	/**
@@ -204,6 +228,7 @@ class WP_Quick_Image_Admin {
 				<option value='<?php echo $this_type ?>' <?php selected( $current_val, $this_type ); ?>><?php echo $this_type; ?></option>
 			<?php endforeach; ?>
 		</select>
+		<p><em><?php _e('Select a post type to create when creating a quick image. This will normally be "post", but change it if you need to.'); ?></em></p>
 
 	<?php
 	}
@@ -222,16 +247,18 @@ class WP_Quick_Image_Admin {
 		}
 	?>
 		<select name='wpqi_settings[category]'>
-			<?php foreach (get_post_types() as $this_type) : ?>
-				<option value='<?php echo $this_type ?>' <?php selected( $current_val, $this_type ); ?>><?php echo $this_type; ?></option>
+			<option value="0" <?php selected( $current_val, 0 ); ?>><?php _e("No category"); ?></option>
+			<?php foreach (get_categories(array('hide_empty' => 0)) as $this_cat) : ?>
+				<option value='<?php echo $this_cat->term_id ?>' <?php selected( $current_val, $this_cat->term_id ); ?>><?php echo $this_cat->name; ?></option>
 			<?php endforeach; ?>
 		</select>
+		<p><em><?php _e('Please select a category to assign new quick images to. This only applies if the post type is "Post".'); ?></em></p>
 
 	<?php
 	}
 
 	/**
-	 * Output the content for the post type option
+	 * Output the content for the tag option
 	 * 
 	 * @since 0.2.0
 	 */
@@ -245,11 +272,73 @@ class WP_Quick_Image_Admin {
 
 	?>
 		<select name='wpqi_settings[tag]'>
-			<?php foreach (get_post_types() as $this_type) : ?>
-				<option value='<?php echo $this_type ?>' <?php selected( $current_val, $this_type ); ?>><?php echo $this_type; ?></option>
+			<option value="0" <?php selected( $current_val, 0 ); ?>><?php _e('No tag'); ?></option>
+			<?php foreach (get_tags(array('hide_empty' => false)) as $this_tag) : ?>
+				<option value='<?php echo $this_tag->term_id; ?>' <?php selected( $current_val, $this_tag->term_id ); ?>><?php echo $this_tag->name; ?></option>
 			<?php endforeach; ?>
 		</select>
+		<p><em><?php _e('Select a tag to assign new posts to. This only applies if the post type is "Post".'); ?></em></p>
 
+	<?php
+	}
+
+	/**
+	 * Output the content for the add excerpt option
+	 * 
+	 * @since 0.2.0
+	 */
+	public function wpqi_add_excerpt_field_render() {
+		$options = get_option( 'wpqi_settings' );
+		if (isset($options['add_excerpt'])) {
+			$current_val = $options['add_excerpt'];
+		} else {
+			$current_val = 1;
+		}
+		
+	?>
+		<input name='wpqi_settings[add_excerpt]' type="radio" value="0" <?php checked($current_val, 0); ?>>No</input>
+		<input name='wpqi_settings[add_excerpt]' type="radio" value="1" <?php checked($current_val, 1); ?>>Yes</input>
+		<p><em>If this is turned on, the content added in quick image will also be added to the excerpt field. This can be useful for populating OpenGraph data for social media to use.</em></p>
+	<?php
+	}
+
+	/**
+	 * Output the content for the add content option
+	 * 
+	 * @since 0.2.0
+	 */
+	public function wpqi_add_content_field_render() {
+		$options = get_option( 'wpqi_settings' );
+		if (isset($options['add_content'])) {
+			$current_val = $options['add_content'];
+		} else {
+			$current_val = 0;
+		}
+		
+	?>
+		<input name='wpqi_settings[add_content]' type="radio" value="0" <?php checked($current_val, 0); ?>>No</input>
+		<input name='wpqi_settings[add_content]' type="radio" value="1" <?php checked($current_val, 1); ?>>Yes</input>
+		<p><em>If this is turned on, the image will be added to the content of the post.</em></p>
+	<?php
+	}
+
+	/**
+	 * Output the content for the set featured image option
+	 * 
+	 * @since 0.2.0
+	 */
+	public function wpqi_set_featured_image_field_render() {
+		$options = get_option( 'wpqi_settings' );
+		if (isset($options['set_featured_image'])) {
+			$current_val = $options['set_featured_image'];
+		} else {
+			$current_val = 1;
+		}
+		
+	?>
+		<input name='wpqi_settings[set_featured_image]' type="radio" value="0" <?php checked($current_val, 0); ?>>No</input>
+		<input name='wpqi_settings[set_featured_image]' type="radio" value="1" <?php checked($current_val, 1); ?>>Yes</input>
+		<p><em>If this is turned on, the image will be used as the featured image of the post.</em></p>
 	<?php
 	}
 
