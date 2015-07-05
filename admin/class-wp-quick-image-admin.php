@@ -243,7 +243,7 @@ class WP_Quick_Image_Admin {
 		if (isset($options['category'])) {
 			$current_val = $options['category'];
 		} else {
-			$current_val = '';
+			$current_val = 0;
 		}
 	?>
 		<select name='wpqi_settings[category]'>
@@ -252,7 +252,7 @@ class WP_Quick_Image_Admin {
 				<option value='<?php echo $this_cat->term_id ?>' <?php selected( $current_val, $this_cat->term_id ); ?>><?php echo $this_cat->name; ?></option>
 			<?php endforeach; ?>
 		</select>
-		<p><em><?php _e('Please select a category to assign new quick images to. This only applies if the post type is "Post".'); ?></em></p>
+		<p><em><?php _e('Please select a category to assign new quick images to. This only applies if the post type is "Post". Note that the WordPress default category applies if this is not set.'); ?></em></p>
 
 	<?php
 	}
@@ -267,7 +267,7 @@ class WP_Quick_Image_Admin {
 		if (isset($options['tag'])) {
 			$current_val = $options['tag'];
 		} else {
-			$current_val = '';
+			$current_val = 0;
 		}
 
 	?>
@@ -405,18 +405,70 @@ class WP_Quick_Image_Admin {
 			$post_title = $_REQUEST['wp-quick-image-title'];
 			$post_content = $_REQUEST['wp-quick-image-content'];
 
+			// Set the post details with defaults. We'll modify these as per the options if necessary.
 			$post_details = array(
 									'post_content' => $post_content,
 									'post_title' => $post_title,
 									'post_status' => 'publish',
 									'post_type' => 'post',
-									'post_excerpt' => $post_title,
 								);
+
+			// Process the options and build the post details
+			$options = get_option( 'wpqi_settings' );
+
+			// post_type is always set - 'post' is the default, set above
+			if (isset($options['post_type'])) {
+				$post_details['post_type'] = $options['post_type'];
+			}
+
+			// Zero if not set - only do this for posts
+			if ('post' == $post_details['post_type'] && isset($options['category'])) {
+				if ($options['category'] > 0) {
+					$post_details['post_category'] = array( $options['category'] );
+				}
+			}
+			
+			// Zero if not set - only do this for posts
+			if ('post' == $post_details['post_type'] && isset($options['tag'])) {
+				if ($options['tag'] > 0) {
+					// tags_input take a name, not an ID!
+					$tag_details = get_tag($options['tag']);
+					$post_details['tags_input'] = array( $tag_details->name );
+				}
+			}
+
+			// This is 0 or 1
+			if (isset($options['add_excerpt'])) {
+				if (1 == $options['add_excerpt']) {
+					$post_details['post_excerpt'] = $post_content;
+				}
+			} else {
+				// There's no options set - default is to add the excerpt
+				$post_details['post_excerpt'] = $post_content;
+			}
+
+			// This is a 0 or 1
+			if (isset($options['add_content'])) {
+				if (1 == $options['add_content']) {
+					$post_details['post_content'] = wp_get_attachment_image( $attachment_id, 'full' ) . $post_details['post_content'];
+				}
+			} else {
+				// No option set - default is to do nothing.
+			}
 
 			$post_id = wp_insert_post( $post_details );
 
 			if ($post_id > 0) {
-				update_post_meta($post_id, '_thumbnail_id', $attachment_id);
+	
+				// Check the featured image setting - this is a 0 or 1
+				if (isset($options['set_featured_image'])) {
+					if (1 == $options['set_featured_image']) {
+						update_post_meta($post_id, '_thumbnail_id', $attachment_id);
+					}
+				} else {
+					// No option is set - default is to add thumbnail
+					update_post_meta($post_id, '_thumbnail_id', $attachment_id);
+				}
 				header('Content-Type: application/json');
 				echo json_encode( array( 
 									'postId' => $post_id,
