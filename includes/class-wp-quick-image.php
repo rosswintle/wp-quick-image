@@ -68,7 +68,7 @@ class WP_Quick_Image {
 	public function __construct() {
 
 		$this->plugin_name = 'wp-quick-image';
-		$this->version = '0.1';
+		$this->version = '0.2';
 
 		$this->load_dependencies();
 		$this->set_locale();
@@ -160,6 +160,11 @@ class WP_Quick_Image {
 		// Load the AJAX handler
 		$this->loader->add_action( 'wp_ajax_wp-quick-image-save', $plugin_admin, 'handle_ajax_submit' );
 
+		// Add settings page
+		$this->loader->add_action( 'admin_menu', $plugin_admin, 'init_settings_menu' );
+
+		// Init settings
+		$this->loader->add_action( 'admin_init', $plugin_admin, 'init_settings' );
 	}
 
 	/**
