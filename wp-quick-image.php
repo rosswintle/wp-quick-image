@@ -14,9 +14,9 @@
  *
  * @wordpress-plugin
  * Plugin Name:       WP Quick Image
- * Plugin URI:        http://oikos.org.uk/wp-quick-image/
+ * Plugin URI:        http://wp-quick-image.com/
  * Description:       This plugin adds a WordPress Dashboard widget that allows you to quickly post an image.
- * Version:           0.1.3
+ * Version:           0.2
  * Author:            Ross Wintle / Oikos
  * Author URI:        http://oikos.org.uk
  * License:           GPL-2.0+
