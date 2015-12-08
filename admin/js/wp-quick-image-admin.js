@@ -62,7 +62,7 @@
 			uploader.open();
 		});
 		// This does the submit
-		$('form#quick-press').submit( function (e) {
+		$('form#wp-quick-image-widget').submit( function (e) {
 			e.preventDefault();
 			// Disable buttons until we're done.
 			$('.wpqi-disable-on-submit').attr('disabled', true);
@@ -70,13 +70,13 @@
 			$('#wpqi-save-post').val('Publishing');
 			// Post the data
 			$.post( ajaxurl, $(this).serialize(), function( data, textStatus ) {
-				$('form#quick-press .wpqi-error').remove();
+				$('form#wp-quick-image-widget .wpqi-error').remove();
 				if (0 === parseInt(data, 10)) {
-					$('form#quick-press').append('<p class="wpqi-error">Sorry - I couldn\'t create a post. Did you enter a title and content?</p>');
+					$('form#wp-quick-image-widget').append('<p class="wpqi-error">Sorry - I couldn\'t create a post. Did you enter a title and content?</p>');
 					$('#wpqi-save-post').val('Publish this');
 					$('.wpqi-disable-on-submit').attr('disabled', false);
 				} else {
-					$('form#quick-press').append('<a href="' + data.editUrl + '">Edit post</a> | <a href="' + data.permalink + '">View post</a>');
+					$('form#wp-quick-image-widget').append('<a href="' + data.editUrl + '">Edit post</a> | <a href="' + data.permalink + '">View post</a>');
 					$('#wpqi-save-post').val('Done!');
 				}
 			});
