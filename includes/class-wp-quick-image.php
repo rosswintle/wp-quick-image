@@ -68,7 +68,7 @@ class WP_Quick_Image {
 	public function __construct() {
 
 		$this->plugin_name = 'wp-quick-image';
-		$this->version = '0.2';
+		$this->version = '0.3';
 
 		$this->load_dependencies();
 		$this->set_locale();
