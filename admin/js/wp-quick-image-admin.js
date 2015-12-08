@@ -43,7 +43,6 @@
 				var selection = uploader.state().get('selection');
 				var attachments = [];
 				var image = selection.pop();
-				console.log(image);
 				var mediumImage = image.attributes.sizes.medium;
 
 				// Update selected ID
@@ -71,13 +70,6 @@
 			$('#wpqi-save-post').val('Publishing');
 			// Post the data
 			$.post( ajaxurl, $(this).serialize(), function( data, textStatus ) {
-				console.log('Success');
-				console.log('Data: ');
-				console.log(data);
-				console.log('textStatus: ');
-				console.log(textStatus);
-				console.log('editUrl: ');
-				console.log(data.editUrl);
 				$('form#quick-press').append('<a href="' + data.editUrl + '">Edit post</a> | <a href="' + data.permalink + '">View post</a>');
 				$('#wpqi-save-post').val('Done!');
 			});
