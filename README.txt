@@ -2,8 +2,8 @@
 Contributors: magicroundabout
 Tags: images, dashboard, widgets
 Requires at least: 4.0
-Tested up to: 4.2
-Stable tag: 0.2
+Tested up to: 4.4
+Stable tag: 0.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -65,6 +65,11 @@ No, but this is an option I plan to add in future.
 
 == Changelog ==
 
+= 0.3 =
+* Minor bug fixes
+* Added some error checking on submit
+* Tested with WordPress 4.3 and 4.4
+
 = 0.2 =
 * Added options - you can now set category, tag, and post type, and control content to some extent.
 
@@ -81,6 +86,11 @@ No, but this is an option I plan to add in future.
 * Initial release
 
 == Upgrade Notice ==
+
+= 0.3 =
+* Minor bug fixes
+* Added some error checking on submit
+* Tested with WordPress 4.3 and 4.4
 
 = 0.2 =
 * Added options - you can now set category, tag, and post type, and control content to some extent.

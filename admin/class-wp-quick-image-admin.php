@@ -362,7 +362,7 @@ class WP_Quick_Image_Admin {
 	 */
 	public function display_widget() {
 ?>
-		<form name="post" action="http://plugindev.localnet/wp-admin/post.php" method="post" id="quick-press" class="initial-form hide-if-no-js">
+		<form name="post" action="http://plugindev.localnet/wp-admin/post.php" method="post" id="wp-quick-image-widget" class="initial-form hide-if-no-js">
 
 		
 			<div class="input-text-wrap" id="wp-quick-image-title-wrap">

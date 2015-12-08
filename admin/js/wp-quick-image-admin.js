@@ -43,7 +43,6 @@
 				var selection = uploader.state().get('selection');
 				var attachments = [];
 				var image = selection.pop();
-				console.log(image);
 				var mediumImage = image.attributes.sizes.medium;
 
 				// Update selected ID
@@ -63,23 +62,23 @@
 			uploader.open();
 		});
 		// This does the submit
-		$('form#quick-press').submit( function (e) {
+		$('form#wp-quick-image-widget').submit( function (e) {
 			e.preventDefault();
 			// Disable buttons until we're done.
-			$('.wpqi-disable-on-submit').attr('disabled', 'true');
+			$('.wpqi-disable-on-submit').attr('disabled', true);
 			// Set text on the submit button.
 			$('#wpqi-save-post').val('Publishing');
 			// Post the data
 			$.post( ajaxurl, $(this).serialize(), function( data, textStatus ) {
-				console.log('Success');
-				console.log('Data: ');
-				console.log(data);
-				console.log('textStatus: ');
-				console.log(textStatus);
-				console.log('editUrl: ');
-				console.log(data.editUrl);
-				$('form#quick-press').append('<a href="' + data.editUrl + '">Edit post</a> | <a href="' + data.permalink + '">View post</a>');
-				$('#wpqi-save-post').val('Done!');
+				$('form#wp-quick-image-widget .wpqi-error').remove();
+				if (0 === parseInt(data, 10)) {
+					$('form#wp-quick-image-widget').append('<p class="wpqi-error">Sorry - I couldn\'t create a post. Did you enter a title and content?</p>');
+					$('#wpqi-save-post').val('Publish this');
+					$('.wpqi-disable-on-submit').attr('disabled', false);
+				} else {
+					$('form#wp-quick-image-widget').append('<a href="' + data.editUrl + '">Edit post</a> | <a href="' + data.permalink + '">View post</a>');
+					$('#wpqi-save-post').val('Done!');
+				}
 			});
 		});
 		// Make placeholders work - this is AWFUL but is based on the non-reusable, un-semantic code in
